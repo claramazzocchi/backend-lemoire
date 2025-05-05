@@ -19,9 +19,11 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
 app.use(express.json());
-
+app.use(cors({
+    origin: 'https://claramazzocchi.github.io'
+  }));
+  
 const eliminaPrenotazioniVecchie = async () => {
     const oggi = new Date();
     oggi.setHours(0, 0, 0, 0);
