@@ -4,15 +4,15 @@ const nodemailer = require('nodemailer');
 
 
 // Connessione a MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connesso a MongoDB Atlas');
     eliminaPrenotazioniVecchie();
   })
-  
+  .catch((err) => {
+    console.error('Errore di connessione a MongoDB:', err);
+  });
+
 const express = require('express');
 const cors = require('cors');
 
@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(cors({
     origin: 'https://claramazzocchi.github.io'
   }));
-  
 const eliminaPrenotazioniVecchie = async () => {
     const oggi = new Date();
     oggi.setHours(0, 0, 0, 0);
